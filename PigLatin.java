@@ -1,3 +1,5 @@
+//Eno Dynowski, COMP-271 - Data Structures, Fall 2022
+
 import java.util.Scanner;
 public class PigLatin {
     public static void main (String[] args) throws StringIndexOutOfBoundsException{

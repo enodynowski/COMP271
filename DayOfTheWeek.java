@@ -1,3 +1,5 @@
+//Eno Dynowski, COMP-271 - Data Structures, Fall 2022
+
 import java.util.Scanner;
 public class DayOfTheWeek {
     public static void main(String[] args){

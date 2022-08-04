@@ -1,3 +1,5 @@
+//Eno Dynowski, COMP-271 - Data Structures, Fall 2022
+
 import java.util.HashMap;
 import java.util.Scanner;
 
