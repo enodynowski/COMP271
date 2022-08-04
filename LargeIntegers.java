@@ -45,17 +45,21 @@ public class LargeIntegers {
         //actually doing the math that adds the numbers together. Using carry to keep track of carried values to add back in at the end
         int carry = 0;
         for (int i = 0; i < length1; i++){
+            //this loop iterates through each digit in the first number, and adds it to the second number and keeps track of the carry. 
             int sum  = ((int)(firstInt.charAt(i) - '0') + (int)(secondInt.charAt(i) - '0') + carry);
+            //adding the sum to the final result. 
             sumString += (char)(sum %10 + '0');
 
             carry = sum / 10;
         }
+
+        //this loop iterates through the rest of the digits in the second number, which we forced to be longer above, and adds them to the sum in the same manner as above. 
         for (int i = length1; i < length2; i++){
             int sum = ((int)(secondInt.charAt(i) - '0') + carry);
             sumString += (char)(sum % 10 + '0');
             carry = sum / 10;
         }
-        //adding the carry back in if there is one
+        //adding the leftover carry back in if there is one
         if (carry > 0){
             sumString += (char)(carry + '0');
         }
