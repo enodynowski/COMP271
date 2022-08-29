@@ -20,13 +20,15 @@ public class DayOfTheWeek {
         return date;
     }
 
-    //takes the 3 integers the user entered and converts to an in 0-6. 0 is Sunday, 1 is Monday, etc.
+    //takes the 3 integers the user entered and converts to an int 0-6. 0 is Sunday, 1 is Monday, etc.
     public static int dayOfWeek(int month, int day, int year){
         int a = (14 - month) / 12;
         int y = year - a;
         int m = month + 12 * a - 2;
         int d = (day + y + y/4 - y/100 + y/400 + (31*m)/12) % 7;
+        // This uses Sakamoto's algorithm, found here, and adapted: https://www.geeksforgeeks.org/tomohiko-sakamotos-algorithm-finding-day-week/
         return d;
+
     }
     
     //taking the user input, coverting to an int between 0 and 6, then converting that to a day of the week
