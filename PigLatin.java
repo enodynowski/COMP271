@@ -15,7 +15,7 @@ public class PigLatin {
             System.exit(0);
 
         } else {
-            //running a loop to check if each sentence is empty or not. If it is, breaking and closing the program.
+            //running a loop to check if each sentence is empty or not. If it is, closing the program.
             while (!sentence.equals("")){
                 //translating the sentence
                 System.out.println(translateSentence(sentence));
@@ -61,7 +61,8 @@ public class PigLatin {
 
     //boolean to check if a word starts with a consonant combo
     public static boolean startsWithConsonantCombo(String word){
-        String[] combos = {"bl", "br", "ch", "cl", "cr", "dr", "dw", "fl", "fr", "gl", "gr", "kl", "ph", "pl", "pr", "qu", "sc", "kn", "sk", "sl", "sm", "sn", "sp", "sq", "st", "sw", "th", "tr", "tw", "wh", "wr"};
+        String[] combos = {"bl", "br", "ch", "cl", "cr", "dr", "dw", "fl", "fr", "gl", "gr", "kl", "ph",
+         "pl", "pr", "qu", "sc", "kn", "sk", "sl", "sm", "sn", "sp", "sq", "st", "sw", "th", "tr", "tw", "wh", "wr"};
         boolean startsWithCombo = false;
         for(int i = 0; i < combos.length; i++){
             if(word.startsWith(combos[i])){
