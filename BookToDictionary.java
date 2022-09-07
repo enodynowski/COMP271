@@ -3,7 +3,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.Scanner;
 
-public class BookToDictionary {
+public class BookToDictionary{
 
     /**
      * Produces a Scanner connected to a text file accessible via the web.
@@ -19,11 +19,10 @@ public class BookToDictionary {
 
 
     private static final String BOOKURL = "https://www.gutenberg.org/files/98/98-0.txt";
-
     public static void main(String[] args) {
         // Link to A Tale of Two Cities
+        readInput(browseTextFile(BOOKURL));
     } 
-
 
     public final static Scanner browseTextFile(final String link) {
         // Declare the return variable
@@ -41,53 +40,79 @@ public class BookToDictionary {
         return fileOnline;
     }  // method browseTextFile
 
+    /**
+    * Returns an array containing all elements of input array, but larger
+    * @param size Integer
+    * @param a String []
+    * @return String []
+    */
+    private static  String[] increaseArraySize(String [] a, int size){
+        //create a new temp array that is some value *size* larger than the input array
+        String [] b = new String [a.length + size];
+        //copy the contents of the original array into the new array
+        System.arraycopy(a, 0, b, 0, a.length);
+        //make the original array equal to the temp array and return it
+        a = b;
+        return a;
+    }
 
-    //this method
-    public static String  makeBookString(Scanner book){
-        String text = "";
+    /**
+    * Returns a boolean containing the value of whether a supplied string is equal to any of the 
+    * values already in the supplied array. 
+    * @param a String[]
+    * @param testCase String
+    * @return boolean
+    */
+    private static boolean arrayContains(String [] a, String testCase){
+        //instantiating the result boolean and a counter to keep track of where we're at.
+        boolean result = false;
+        int counter = 0;
+        //looping through the array so long as we haven't found a duplicate and haven't reached the end of the array.
+        while (!result && counter < a.length){
+            //if the value is not null, set result boolean to the result of whether the value is equal to the test value.
+            if (a[counter] != null) result = removePunctuation(a[counter]).equals(testCase);
+            //increment the counter
+            counter++;
+        }
+        return result;
+    }
+
+    /**
+    * Returns a string that has the punctuation and case removed.
+    * @param str String
+    * @return String
+    */
+    private static String removePunctuation(String str){
+        //using regex to replace all characters that are not a-z or A-Z, and converting to lower case, then returning
+        //the cleansed string
+        str = str.replaceAll("[^a-zA-Z ]", "").toLowerCase();
+        return str;
+    }
+
+    /**
+     * Returns a String [] containing the dictionary
+     * @param book Scanner
+     * @return String[]
+     */
+    private static String [] readInput(Scanner book){
+        //creating the final array that we'll be using to store our dictionary
+        String[] dictionary = new String [2];
+        //ensuring that the first item of the array is the 
+        dictionary[0] = book.next(); 
         while (book.hasNext()){
-            text += book.next();
+            while(dictionary.length < 20){
+                for (int i = 1; i < dictionary.length; i++){
+                    String word = book.next();
+                    if (arrayContains(dictionary, removePunctuation(word)) == false){
+                        dictionary[i] = removePunctuation(word);
+                        dictionary = increaseArraySize(dictionary, 1);
+                    } else {
+                        i--;
+                    } 
+                }
+            }
         }
-        return text;
-        
+        book.close();
+        return dictionary;
     }
-
-    public static int getWordCount(String book){
-        book = makeBookString(browseTextFile(BOOKURL));
-        String bookTrimmed = book.trim();
-        if (bookTrimmed.isEmpty()){
-            return 0;
-        }
-        return bookTrimmed.split("\\s+").length;
-    }
-
-
-    public static String [] makeDictionary(int wordCount, String book){
-
-        String [] dictionary = new String[wordCount];
-        dictionary = 
-        
-        
-
-    }
-
-    /** Use main() to call other methods; don't put all your code in main. */
-    
 }  // class BookToDictionary
-
-
-
-
-
-
-
-
-
-
-/* getURL
- * readDataFrom(getURL)
- * 
- * 
- * 
- * 
- */
