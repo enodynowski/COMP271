@@ -42,9 +42,9 @@ public class BookToDictionary{
 
     /**
     * Returns an array containing all elements of input array, but larger
-    * @param size Integer
-    * @param a String []
-    * @return String []
+    * @param size Integer value by which to increase the array size.
+    * @param a String [] array of which you wish to modify the size.
+    * @return String [] new array of increased size. 
     */
     private static  String[] increaseArraySize(String [] a, int size){
         //create a new temp array that is some value *size* larger than the input array
@@ -59,9 +59,9 @@ public class BookToDictionary{
     /**
     * Returns a boolean containing the value of whether a supplied string is equal to any of the 
     * values already in the supplied array. 
-    * @param a String[]
-    * @param testCase String
-    * @return boolean
+    * @param a String[] array in which you wish to check for a value.
+    * @param testCase String the value that you wish to check for.
+    * @return boolean of whether the value is in the array or not. 
     */
     private static boolean arrayContains(String [] a, String testCase){
         //instantiating the result boolean and a counter to keep track of where we're at.
@@ -79,8 +79,8 @@ public class BookToDictionary{
 
     /**
     * Returns a string that has the punctuation and case removed.
-    * @param str String
-    * @return String
+    * @param str String that you wish to remove punctuation from.
+    * @return String the same string, containing only characters a-z or A-Z. 
     */
     private static String removePunctuation(String str){
         //using regex to replace all characters that are not a-z or A-Z, and converting to lower case, then returning
@@ -91,27 +91,31 @@ public class BookToDictionary{
 
     /**
      * Returns a String [] containing the dictionary
-     * @param book Scanner
-     * @return String[]
+     * @param book Scanner connected to the gutenberg txt file containing the book. 
+     * @return String[] an array of the unique words in the book, in the order that they appear. 
      */
     private static String [] readInput(Scanner book){
         //creating the final array that we'll be using to store our dictionary
         String[] dictionary = new String [2];
-        //ensuring that the first item of the array is the 
+        //ensuring that the first item of the array is the first word of the book
         dictionary[0] = book.next(); 
         while (book.hasNext()){
-            while(dictionary.length < 20){
-                for (int i = 1; i < dictionary.length; i++){
-                    String word = book.next();
-                    if (arrayContains(dictionary, removePunctuation(word)) == false){
-                        dictionary[i] = removePunctuation(word);
-                        dictionary = increaseArraySize(dictionary, 1);
-                    } else {
-                        i--;
-                    } 
-                }
+            //iterate over the length of the array instantiated above. 
+            for (int i = 1; i < dictionary.length; i++){
+                //setting a variable to the next word, so as not to continue reading words every time I need to reference it. 
+                String word = book.next();
+                //checking if the array already contains the word, sans punctuation. 
+                if (arrayContains(dictionary, removePunctuation(word)) == false){
+                    //assuming the array does not contain the word, adding it to the array. Then increasing the size of the array by 1, so the loop keeps going. 
+                    dictionary[i] = removePunctuation(word);
+                    dictionary = increaseArraySize(dictionary, 1);
+                //if the word is in the array, take a step back to avoid having a null value in the array. 
+                } else {
+                    i--;
+                } 
             }
         }
+        //close the scanner and return the complete dictionary. 
         book.close();
         return dictionary;
     }
