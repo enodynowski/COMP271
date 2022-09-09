@@ -2,6 +2,7 @@
 import java.io.IOException;
 import java.net.URL;
 import java.util.Scanner;
+import java.util.Arrays;
 
 public class BookToDictionary{
 
@@ -46,11 +47,13 @@ public class BookToDictionary{
     * @param a String [] array of which you wish to modify the size.
     * @return String [] new array of increased size. 
     */
-    private static  String[] increaseArraySize(String [] a, int size){
+    private static String[] increaseArraySize(String [] a, int size){
         //create a new temp array that is some value *size* larger than the input array
         String [] b = new String [a.length + size];
         //copy the contents of the original array into the new array
-        System.arraycopy(a, 0, b, 0, a.length);
+        for(int i = 0; i < a.length; i++){
+            b[i] = a[i];
+        }
         //make the original array equal to the temp array and return it
         a = b;
         return a;
@@ -109,6 +112,7 @@ public class BookToDictionary{
                     //assuming the array does not contain the word, adding it to the array. Then increasing the size of the array by 1, so the loop keeps going. 
                     dictionary[i] = removePunctuation(word);
                     dictionary = increaseArraySize(dictionary, 1);
+                    System.out.println(Arrays.toString(dictionary));
                 //if the word is in the array, take a step back to avoid having a null value in the array. 
                 } else {
                     i--;
