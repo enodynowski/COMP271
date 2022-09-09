@@ -2,7 +2,6 @@
 import java.io.IOException;
 import java.net.URL;
 import java.util.Scanner;
-import java.util.Arrays;
 
 public class BookToDictionary{
 
@@ -112,7 +111,6 @@ public class BookToDictionary{
                     //assuming the array does not contain the word, adding it to the array. Then increasing the size of the array by 1, so the loop keeps going. 
                     dictionary[i] = removePunctuation(word);
                     dictionary = increaseArraySize(dictionary, 1);
-                    System.out.println(Arrays.toString(dictionary));
                 //if the word is in the array, take a step back to avoid having a null value in the array. 
                 } else {
                     i--;
