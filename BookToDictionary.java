@@ -70,7 +70,7 @@ public class BookToDictionary{
         boolean result = false;
         int counter = 0;
         //looping through the array so long as we haven't found a duplicate and haven't reached the end of the array.
-        while (!result && counter < a.length){
+        while (!result || counter < a.length){
             //if the value is not null, set result boolean to the result of whether the value is equal to the test value.
             if (a[counter] != null) result = removePunctuation(a[counter]).equals(testCase);
             //increment the counter
