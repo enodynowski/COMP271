@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 public class SortingPractice {
 
     /**
@@ -62,6 +64,25 @@ public class SortingPractice {
     }  // method slide
 
 
+    
+    static int[] recursiveMergeSort(int[] array, int low, int high) {
+        //System.out.println(Arrays.toString(array));
+        if (low == high){
+            int [] br = new int [1];
+            br [0] = array[low];
+            return br;
+        }
+        int midPoint = (low + high)/ 2;
+
+        int [] temp1 = recursiveMergeSort(array, low, midPoint);
+        System.out.println(Arrays.toString(temp1));
+        int [] temp2 = recursiveMergeSort(array, midPoint + 1, high);
+        System.out.println(Arrays.toString(temp2));
+
+        int [] merged =  merge(temp1, temp2);
+        return merged;
+    }  // method iterativeMergeSort
+
     /**
      * Iterative implementation of merge sort.
      *
@@ -103,8 +124,32 @@ public class SortingPractice {
      * @param array int array to sort
      * @return int array sorted
      */
-    static int[] iterativeMergeSort(int[] array) {
+    static int [] iterativeMergeSort (int []  array){
+        int currentSize;
+        int leftStart;
+        int midPoint;
+
+        for ( currentSize = 1; currentSize <= array.length -1; currentSize += 2*currentSize){
+            for(leftStart = 0; leftStart < array.length -1; leftStart += 2*currentSize){
+                if ((leftStart + currentSize - 1) > (array.length -1)){
+                    midPoint = array.length - 1;
+                } else {
+                    midPoint = leftStart + currentSize -1;
+                }
+                int right
+
+            }
+        }
+
+
         return array;
-    }  // method iterativeMergeSort
+    }
+    public static void main(String[] args) {
+        int[] actual = { 5, 1, 6, 2, 3, 4, 8, 9, 7};
+        //int[] expected = { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+        System.out.println(Arrays.toString(recursiveMergeSort(actual, 0, actual.length -1)));
+        System.out.println(Arrays.toString(iterativeMergeSort(actual)));
+
+    }
 
 }  // class SortingPractice
