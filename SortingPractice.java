@@ -2,13 +2,12 @@ import java.util.Arrays;
 
 public class SortingPractice {
 
-    /**
-     * Merges two sorted arrays into one sorted array
-     * @param first int array to merge
-     * @param second int array to merge
-     * @return int array with merged first and second arrays, sorted
-     */
-    static int[] merge(int[] first, int[] second) {
+    // I could not figure out how to do this with the provided merge method. I look forward to seeing the solution. 
+    // I did manage to figure out how to do it recursively as well though, which is sort of cool. You can see that code
+    // below in the comments. The code for the assignment is below that. 
+
+    /*
+     * static int[] merge(int[] first, int[] second) {
         // Initialize the output array
         int[] merged = new int[first.length+second.length];
         // Initialize array indices; use first letter of array's name
@@ -37,34 +36,6 @@ public class SortingPractice {
         return merged;
     }  // method merge
 
-
-    /**
-     * Returns a slice of an array from position start upto, but not including,
-     * position end.
-     *
-     * @param array int array to slice
-     * @param start int beginning of slice
-     * @param end int end of slice
-     * @return int array with slice of array from start upto end. If parameters
-     * start or end are out of bounds, method returns an array of length 0.
-     */
-    static int[] slice(int[] array, int start, int end) {
-        // Initialize empty array to return if start or end are out of bounds
-        int[] slicedArray = {};
-        // Validate start, end
-        if (start >=0 && end < array.length) {
-            // Initialize properly sized array to return
-            slicedArray = new int[end - start];
-            // Copy elements from input array into slice
-            for (int i = 0; i < slicedArray.length; i++) {
-                slicedArray[i] = array[start + i];
-            }
-        }
-        return slicedArray;
-    }  // method slide
-
-
-    
     static int[] recursiveMergeSort(int[] array, int low, int high) {
         //System.out.println(Arrays.toString(array));
         if (low == high){
@@ -82,72 +53,108 @@ public class SortingPractice {
         int [] merged =  merge(temp1, temp2);
         return merged;
     }  // method iterativeMergeSort
+     */
 
+/*******************************************************************/
+/*Here is the code for the actual assignment */
     /**
-     * Iterative implementation of merge sort.
-     *
-     * The functionality of this method is best described with the following
-     * example. Consider the array input
-     *   arr = [7,6,5,4,3,2,1,0]
-     *
-     * The first step is to merge-sort pairs of 1-element arrays and place their
-     * results back into the array. The pairs of 1-element arrays to be merged
-     * are:
-     *
-     *  pairs       merged 2-element arrays
-     * [7], [6]       [6,7]    )
-     * [5], [4]       [4,5]    )  These sorted sub-arrays must go back
-     * [3], [2]       [2,3]    )  into proper places in the original array
-     * [1], [0]       [0,1]    )
-     *
-     * After placing these sorted 2-element arrays back into proper positions in
-     * the original array, it will look like:
-     *
-     *   arr = [6,7,4,5,2,3,0,1]
-     *
-     * Next, we need to partition arr again, into pairs of 2-element arrays:
-     *
-     *      pairs          merged 4-element arrays
-     * [6,7] and [4,5]        [4,5,6,7]
-     * [2,3] and [0,1]        [0,1,2,3]
-     *
-     * Again, these sorted sub-arrays must be replaced into arr:
-     *
-     *   arr = [4,5,6,7,0,1,2,3]
-     *
-     * For here, we have only one pair of 4-element sorted arrays that can be
-     * merged into an array with 8 elements. And we are done.
-     *
-     * Of course your method must work with arrays of any size -- not just 8.
-     * You may assume that the size of the input array will always be a power of 2.
-     *
      * @param array int array to sort
      * @return int array sorted
      */
     static int [] iterativeMergeSort (int []  array){
+        //the outer loop increments current size of the array
         int currentSize;
+        //the inner loop increments the start point
         int leftStart;
-        int midPoint;
 
-        for ( currentSize = 1; currentSize <= array.length -1; currentSize += 2*currentSize){
+        //iterate over the length of the array, and change the size of the array each pass, doubling each time. 
+        //This makes first 1 element arrays, then 2, then 4, etc. 
+        for ( currentSize = 1; currentSize <= array.length -1; currentSize = 2*currentSize){
+            //iterate over the length of the array and determine what the start point is to merge from. 
             for(leftStart = 0; leftStart < array.length -1; leftStart += 2*currentSize){
-                if ((leftStart + currentSize - 1) > (array.length -1)){
-                    midPoint = array.length - 1;
-                } else {
-                    midPoint = leftStart + currentSize -1;
-                }
-                int right
-
+                // set the midpoint for my merge method equal to whichever of the two parameters is smaller.
+                int mid = Math.min(leftStart + currentSize -1, array.length -1);
+                //determine the right side of the array to be merged. It will vary depending on size of the array
+                //and the left start point. 
+                int rightEnd = Math.min(leftStart + 2*currentSize -1, array.length-1);
+                //merge the arrays
+                merge(array, leftStart, mid, rightEnd);
             }
         }
-
-
         return array;
+    }
+
+    /**
+     * I used some code that I found online and adapted to fit our needs for this. I could not figure out how to get 
+     * the provided merge and slice methods to work with one another. This method combines the two. 
+     * @param array array to be merged
+     * @param leftStart the left start of the array
+     * @param midPoint the mid point where the array will be sliced
+     * @param rightEnd the right end point
+     */
+    static void merge(int array[], int leftStart, int midPoint, int rightEnd)
+    {
+        //creating some variables to help with code readability. 
+        //i, j, and k are used to keep track of the various for loops below
+        int i, j, k;
+        int leftLength = midPoint - leftStart + 1;
+        int rightLength = rightEnd - midPoint;
+      
+        //creating two temporary arrays to store the numbers
+        int leftTemp[] = new int[leftLength];
+        int rightTemp[] = new int[rightLength];
+      
+        //copying the numbers from the array to the two temporary arrays
+        //ensureing that the leftmost numbers go in the left temp, and vice versa
+        for (i = 0; i < leftLength; i++){
+            leftTemp[i] = array[leftStart + i];
+        }
+        for (j = 0; j < rightLength; j++){
+            rightTemp[j] = array[midPoint + 1+ j];
+        }
+      
+        //reset i, j, and k
+        i = 0;
+        j = 0;
+        k = leftStart;
+        /*
+         * Sorting the arrays and merging them back into one another. 
+         * e.g. if leftTemp = [1,3,6] and rightTemp = [2,5,9]
+         * then it will sort them into 
+         * [1,2,3,5,9]
+         */
+        while (i < leftLength && j < rightLength)
+        {
+            //checking which value is smaller, and putting that one into the array again.
+            if (leftTemp[i] <= rightTemp[j])
+            {
+                array[k] = leftTemp[i];
+                i++;
+            }
+            else
+            {
+                array[k] = rightTemp[j];
+                j++;
+            }
+            k++;
+        }
+      
+        //if there's any remaining elements in both arrays, they get added in. 
+        while (i < leftLength)
+        {
+            array[k] = leftTemp[i];
+            i++;
+            k++;
+        }
+        while (j < rightLength)
+        {
+            array[k] = rightTemp[j];
+            j++;
+            k++;
+        }
     }
     public static void main(String[] args) {
         int[] actual = { 5, 1, 6, 2, 3, 4, 8, 9, 7};
-        //int[] expected = { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
-        System.out.println(Arrays.toString(recursiveMergeSort(actual, 0, actual.length -1)));
         System.out.println(Arrays.toString(iterativeMergeSort(actual)));
 
     }
