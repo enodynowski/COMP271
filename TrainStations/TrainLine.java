@@ -166,6 +166,46 @@ public class TrainLine {
         }
     }  // method delete  
 
+    /**
+     * a method to delete the provided station and the one after it. 
+     * @param name the name of the station to be deleted, as well as the one after it. 
+     */
+    public void deleteDelete(String name){
+        //first, check if there are stations in the line before trying to delete. 
+        if (this.head == null){
+            System.out.println("This train line has no stations");
+        //assuming there are stations, check if the provided name is the first station. 
+        } else if (this.head.getName().equals(name)) {
+            //remember the station 2 away from the current head. 
+            TrainStation oldHeadPointedTo = this.head.getNext().getNext();
+            //set the current head to point to nothing
+            this.head.setNext(null);
+            //set the new head to the station 2 away from the old head. 
+            this.head = oldHeadPointedTo;
+        //assuming the station is not the head
+        } else {
+            //create 2 stations, one of which is the starting station. 
+            TrainStation prior = this.head;
+            TrainStation theOneAfterPrior;
+
+            //iterate over the line, checking that there is a next station and that its nme is not the one provided. 
+            while ( prior.hasNext() && (!prior.getNext().getName().equals(name)) ) {
+                prior = prior.getNext();
+            }
+            //if the station provided is at the end of the line, don't delete because there isn't enough stations to delete. 
+            if (prior.getNext().getNext()== null){
+                System.out.println("This is the last station in the line. Cannot deleteDelete.");
+            } else {
+            
+            //set theOneAfterPrior to the one after prior
+            theOneAfterPrior = prior.getNext().getNext();
+            //delete both the one after prior and prior. 
+            delete(theOneAfterPrior.getName());
+            delete(prior.getNext().getName());
+            }
+        }
+    } //method deleteDelete
+
 
     /**
     * String representation of the TrainLine.

@@ -14,7 +14,8 @@ public class CTA_BrownLine {
 
         System.out.println(brownLine);
 
-        brownLine.delete("Rocjwell");
+        //brownLine.delete("Rocjwell");
+        brownLine.deleteDelete("Western");
 
         System.out.println(brownLine.toString());
 
