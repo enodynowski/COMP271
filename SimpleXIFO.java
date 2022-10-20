@@ -78,26 +78,23 @@ public class SimpleXIFO {
      * @return String with the value of the first element in the array.
      */
     public String removeFirst() {
-        String removed = null;
-        int removedIndex = 0;
-        //System.out.println(Arrays.toString(this.xifo));
-        while (removed == null && this.usage < this.xifo.length - 1){
-            removed = this.xifo[usage];
-            removedIndex++;
-            usage++;
-            // System.out.println(this.xifo.length);
-            // System.out.println(usage);
-            // System.out.println(removedIndex);
-            // System.out.println(Arrays.toString(this.xifo));
+        //create an empty string to store what the first element is.
+        String removed = "";
+        //create a boolean to track if the item in the array is the first one, and a counter to keep track of where we're at in the array
+        boolean isFirst = false;
+        int counter = 0;
+        //iterate over the length of the array, checking if we're at the end, and if we're at the first non-null element
+        while (counter < this.xifo.length && !isFirst){
+            //if it is the first element, store the value in removed, set the value to null, then change our boolean
+            if (this.xifo[counter] != null){
+                removed = this.xifo[counter];
+                this.xifo[counter] = null;
+                isFirst = true;
+            }
+            //increment the counter
+            counter++;
         }
-        if (removed == null){
-            removed = "The array contains no values";
-        } else {
-            this.xifo[removedIndex] = null;
-        }
-        /*
-        COMPLETE THIS METHOD
-         */
+        //return the removed string
         return removed;
     }  // method removeFirst
 
@@ -113,9 +110,23 @@ public class SimpleXIFO {
      * @param string String value to add to the beginning of the array.
      */
     public void addFirst(String string) {
-        /*
-        COMPLETE THIS METHOD
-         */
+        //check if the usage is less than the length 
+        if (this.usage < this.xifo.length){
+            //create a temporary array that is the same length as the input one
+            String [] temp = new String [this.xifo.length];
+            //ensure the first element of the temp array is the new string
+            temp[0] = string;
+            //iterate over the length of the array, and copy each element of this.xifo into temp, excluding the first element. 
+            for (int i = 0; i < temp.length -1; i++) {
+                temp[i + 1] = this.xifo[i];
+            }
+            //make this.xifo = temp
+            this.xifo = temp;
+        } else {
+            //if there is no room in the array, let the user know. 
+            System.out.println("There is no room in the Array");
+        }
+        
     }  // method addFirst
 
 
@@ -136,7 +147,7 @@ public class SimpleXIFO {
      * CODE WORKS AS EXPECTED.
      */
     public static void main(String[] args) {
-        int testSize = 1024;
+        int testSize = 12;
         int ascii_A = (int) 'A';
         int letters = 26;
         Random rng = new Random();
