@@ -129,7 +129,6 @@ public class SimpleXIFO {
         
     }  // method addFirst
 
-
     /** FOR TESTING PURPOSES ONLY. DO NOT MODIFY THIS METHOD */
     public String[] getXifo() {
         return this.xifo;
@@ -179,5 +178,8 @@ public class SimpleXIFO {
         } else {
             System.out.printf("\nYour removeFirst method is not quite there yet.\n");
         }
+
+
+
     }  // method main ... DO NOT MODIFY
 }
