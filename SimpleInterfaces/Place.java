@@ -24,12 +24,12 @@ public class Place {
      *
      * @param name String with the name of the place
      */
-    public Place(String name) {
-        this.name = name;
-        this.longitude = 0.0;
-        this.latitude = 0.0;
-        this.elevation = 0;
-    }  // basic constructor
+    // public Place(String name) {
+    //     this.name = name;
+    //     this.longitude = 0.0;
+    //     this.latitude = 0.0;
+    //     this.elevation = 0;
+    // }  // basic constructor
 
 
     // Standard accessors and mutators
