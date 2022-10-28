@@ -109,19 +109,10 @@ public class WeirdAlphaHotel {
             // Determine which room this guest should go to
             int designatedRoom = this.hash(guestName);
             // Check if that room is available
-            if (this.isAvailable(designatedRoom)) {
-                // Place guest here and update assignedRoom and usage
-                assignedRoom = designatedRoom;
-            } else {
-                // Designated room is not available, try nearby rooms, using %
-                // to wrap around if we are near the last room in the array.
-                if (this.isAvailable((designatedRoom+1)%this.numberOfRooms)) {
-                    // Place guest here and update assignedRoom and usage
-                    assignedRoom = (designatedRoom+1)%this.numberOfRooms;
-                } else if (this.isAvailable((designatedRoom+2)%this.numberOfRooms)) {
-                    // Place guest here and update assignedRoom and usage
-                    assignedRoom = (designatedRoom+2)%this.numberOfRooms;
-                } 
+            for (int i = 0; i < probingLength; i++) {
+                if (this.isAvailable((designatedRoom + i)%this.numberOfRooms)){
+                    assignedRoom = (designatedRoom + i)%this.numberOfRooms;
+                }
             }
         }
         /*
