@@ -101,7 +101,7 @@ public class WeirdAlphaHotel {
      * @param guestName String guest to accommodate
      * @return int with room number assigned to guest; or -1 if guest is rejected.
      */
-    public int add(String guestName)  {
+    public int add(String guestName){
         // Assume that we cannot accommodate guest
         int assignedRoom = -1;
         // Check if hotel has available rooms
@@ -122,7 +122,6 @@ public class WeirdAlphaHotel {
                     // Place guest here and update assignedRoom and usage
                     assignedRoom = (designatedRoom+2)%this.numberOfRooms;
                 } 
-                
             }
         }
         /*
@@ -145,7 +144,16 @@ public class WeirdAlphaHotel {
      */
     public String remove(int room) {
         String departingGuest = null;
-        // TBD
+        //assuming that the specified hotel room is occupied...
+        if (this.hotel[room] != null){
+            //store the guest name
+            departingGuest = this.hotel[room];
+            //set the room to null
+            this.hotel[room] = null;
+            //increment the usage accordingly
+            this.usage--;
+        }
+        //return the name of the departing guest
         return departingGuest;
     }  // method remove
 
@@ -155,12 +163,24 @@ public class WeirdAlphaHotel {
      * with the same name, method returns the room of the first guest with that
      * name. If no guest with the specified name is found, method will return -1.
      *
-     * @param guestNane String with guest name to look up
+     * @param guestName String with guest name to look up
      * @return int with room number where guest is found or -1 if guest not present.
      */
-    public int whichRoom(String guestNane) {
+    public int whichRoom(String guestName) {
+        //initialize the room number
         int room = -1;
-        // Write this method to fulfill the functionality described in its Javadoc
+        //while we havent found the appropriate room
+        while (room == -1){
+            //iterate over the length of the hotel
+            for (int i = 0; i < hotel.length; i++) {
+                //check if the guest in hotel[i] is the requested guest
+                if (this.hotel[i] == guestName){
+                    //if it is, store the room number
+                    room = i;
+                }
+            }
+        }
+        // return the room number
         return room;
     }  // method isGuestHere
 
@@ -173,10 +193,21 @@ public class WeirdAlphaHotel {
      * @return true if guest is found, false otherwise.
      */
     public boolean isGuestHere(String guestname) {
-
-        
-
-        return false; // Rewrite this method to fulfill the functionality described in its Javadoc
+        //variable to store the result
+        boolean result = false;
+        //while we haven't found the guest
+        while (!result){
+            //for each guest name in the hotel...
+            for (String name: this.hotel){
+                //check if the guest is the requested guest name
+                if (name == guestname){
+                    //if it is, store the value in our result variable
+                    result = true;
+                }
+            }
+        }
+        //return our result variable
+        return result; // Rewrite this method to fulfill the functionality described in its Javadoc
     }  // method isGuestHere
 
 
