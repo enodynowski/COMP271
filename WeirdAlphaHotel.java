@@ -108,9 +108,11 @@ public class WeirdAlphaHotel {
         if (this.hasVacancy()) {
             // Determine which room this guest should go to
             int designatedRoom = this.hash(guestName);
-            // Check if that room is available
+            // iterate over the probingLength
             for (int i = 0; i < probingLength; i++) {
+                //check if the room at i is available
                 if (this.isAvailable((designatedRoom + i)%this.numberOfRooms)){
+                    //if it is, assign the room to the specified room
                     assignedRoom = (designatedRoom + i)%this.numberOfRooms;
                 }
             }
