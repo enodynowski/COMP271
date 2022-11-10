@@ -1,4 +1,7 @@
 package Hammocks;
+
+import java.util.Arrays;
+
 /**
  * @version 20221104.2130
  */
@@ -206,7 +209,8 @@ public class HammockHotel {
      * @return true if there are absolutely no guests in the hotel and false otherwise.
      */
     public boolean isEmpty() {
-        return false; // Dummy code ... to be replaced by your code
+        //Return whether the usage is 0
+        return this.usage == 0; 
     }  // method isEmpty
 
 
@@ -223,7 +227,14 @@ public class HammockHotel {
     /**
      * Empty the hotel of all guests.
      */
-    public void clear() {}  //  method clear
+    public void clear() {
+        //create new array of the same length as the current hotel
+        Node [] oldHotel = new Node[this.rooms.length];
+        //set the current hotel to the old one
+        this.rooms = oldHotel;
+        //reset the usage to 0 since there are no guests
+        this.usage = 0;
+    }  //  method clear
 
 
     /**
