@@ -230,13 +230,29 @@ public class HammockHotel {
      * @return String array with the names of all the guest.
      */
     public String[] toArray() {
-        String[] guests = new String[this.usage];
-        Node room = new 
-        int iterator = 0;
-        while(iterator < this.rooms.length){
-
+        //create a string to store the names
+        String guestString = "";
+        //iterate over the length of the hotel
+        for (int i = 0; i < this.rooms.length; i++) {
+            //skip the rooms that are empty
+            if (this.rooms[i] == null){
+                continue;
+            } else {
+                //if they are not empty, create a cursor starting at the current room
+                Node cursor = this.rooms[i];
+                //while that cursor is not null, i.e. there are still people in that room
+                while (cursor != null) {
+                    //add the guest names to the guest string
+                    guestString = guestString.concat(cursor.data + " ");
+                    //increment the cursor
+                    cursor = cursor.next;
+                }
+            }
         }
-        return new String[1]; // Dummy code ... to be replaced by your code
+        //create the array that is going to be returned, by taking the guest string and splitting it at the spaces. 
+        String[] guests  = guestString.split(" ");
+        //return the array
+        return guests; 
     }  // method toArray
 
 
