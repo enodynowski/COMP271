@@ -200,7 +200,12 @@ public class HammockHotel {
      * @return true if guest was successfully added.
      */
     public boolean addUnique(String guestName) {
-        return false; // Dummy code ... to be replaced by your code
+        boolean inHotel = false;
+        if (!this.contains(guestName)){
+            this.add(guestName);
+            inHotel = true;
+        }
+        return inHotel; 
     }  // method addUnique
 
     /**
