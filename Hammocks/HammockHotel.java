@@ -200,11 +200,16 @@ public class HammockHotel {
      * @return true if guest was successfully added.
      */
     public boolean addUnique(String guestName) {
+        //boolean to store result
         boolean inHotel = false;
+        //Check if the hotel does not contain the guest already
         if (!this.contains(guestName)){
+            //add the guest if theyre not in the hotel already
             this.add(guestName);
+            //update that theyre in the hotel
             inHotel = true;
         }
+        //return the result
         return inHotel; 
     }  // method addUnique
 
