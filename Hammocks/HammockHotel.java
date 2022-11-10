@@ -274,7 +274,30 @@ public class HammockHotel {
      * @return int array with how many guests are in each room
      */
     public int[] stats() {
-        return new int[1]; // Dummy code ... to be replaced by your code
+        //create new array to store the results
+        int[] quantInRoomArray = new int[this.rooms.length];
+        //iterate over the length of the hotel
+        for (int i = 0; i < this.rooms.length; i++) {
+            //if the room is empty, make sure the array reflects that
+            if (this.rooms[i] == null){
+                quantInRoomArray[i] = 0;
+            } else {
+                //otherwise create a counter to keep track of how many guests there are
+                int quantInRoom = 0;
+                //and a cursor to keep track of where we are in the room
+                Node cursor = this.rooms[i];
+                //while we havent counted all the guests
+                while (cursor != null) {
+                    //increment the counter and the cursor
+                    quantInRoom++;
+                    cursor = cursor.next;
+                }
+                //once we've exhausted the guests in the room, set that equal to the corresponding array element.
+                quantInRoomArray[i] = quantInRoom;
+            }
+        }
+        //return the array
+        return quantInRoomArray;
     }  // method stats
 
 
