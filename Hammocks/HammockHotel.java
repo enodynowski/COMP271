@@ -230,6 +230,12 @@ public class HammockHotel {
      * @return String array with the names of all the guest.
      */
     public String[] toArray() {
+        String[] guests = new String[this.usage];
+        Node room = new 
+        int iterator = 0;
+        while(iterator < this.rooms.length){
+
+        }
         return new String[1]; // Dummy code ... to be replaced by your code
     }  // method toArray
 
