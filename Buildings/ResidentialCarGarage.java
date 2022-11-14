@@ -1,6 +1,6 @@
 package Buildings;
 
-public class ResidentialCarGarage extends Building{
+public class ResidentialCarGarage extends Building {
 
     /** Number of cars accommodated */
     private int cars;
@@ -9,6 +9,12 @@ public class ResidentialCarGarage extends Building{
     public ResidentialCarGarage() {
         super("garage");
     }
+
+    public int compareTo(ResidentialCarGarage garage){
+        return this.cars - garage.cars;
+    }
+
+    
 
     /**
      * Describe car space

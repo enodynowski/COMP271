@@ -34,17 +34,9 @@ public class Building implements Comparable<Building> {
     * I could have chose to compare based on how many floors, but a building can have 30 floors but still have less square footage than the merchandise mart.   
     *
     * @param Building building to be compared
-    * @return result that stores -1, 0, or 1 depending on comparison
     */
     public int compareTo(Building building) {
-        int result = 0;
-        if (building.squareFootage < this.squareFootage){
-            result = 1;
-        } else if (building.squareFootage > this.squareFootage){
-            result = -1;
-        }
-        
-        return result;
+       return this.squareFootage - building.squareFootage;
     } //method compareTo
 
     /**
