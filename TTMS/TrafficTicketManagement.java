@@ -102,9 +102,10 @@ public class TrafficTicketManagement {
                     String licensePlate = AuxiliaryOperations.pad(trafficTicket.licensePlate, FileOperations.licensePlateMaxLength);
                     String date = trafficTicket.date.toString();
                     String address = AuxiliaryOperations.pad(trafficTicket.address, FileOperations.addressMaxLength);
+
                     String violation = AuxiliaryOperations.pad(violations.get(trafficTicket.violationCode).violationDescription, FileOperations.violationDescriptionMaxLength);
                     ticketCounter++;
-                    System.out.printf("\n\t%s\t%s\t\t%s\t%s", date, address, licensePlate, violation);
+                    System.out.printf("\n\t%s\t\t%s\t\t\t\t%s\t%s", date, address, licensePlate, violation);
                 }
             }
             if (ticketCounter == 0) {
@@ -115,8 +116,47 @@ public class TrafficTicketManagement {
     }  // method searchForDriver
 
 
-    /** Inactive method - do not implement unless working on OPTION A*/
-    public static void searchForPlate() {}  // method searchForPlate
+    /**
+     * Method that prints any tickets associated with a given license plate number (LPN)
+     */
+    public static void searchForPlate() {
+        //take user input for the LPN
+        System.out.printf("\nEnter a license plate number: ");
+        String licensePlateNumber = keyboard.next();
+        Vehicle vehicle = vehicles.get(licensePlateNumber);
+
+        //if the provided LPN does not correspond with a vehicle in the database...
+        if (vehicle == null){
+            System.out.printf("There is no record for license plate number %s\n", licensePlateNumber);
+        //if the LPN is already in the database...
+        } else {
+            //output header
+            System.out.printf("\n\n\tTicket date and time\t\t\tLocation\t\t\tDrivers License\t\tViolation");
+            //counter to keep track of the tickets
+            int ticketCounter = 0;
+            //iterate over the traffic tickets that we have in the database
+            for (Map.Entry<Integer, TrafficTicket> trafficTicketEntry: trafficTickets.entrySet()){
+                //create a traffic ticket for each one that we're currently at
+                TrafficTicket  trafficTicket = trafficTicketEntry.getValue();
+                //if the traffic ticket corresponds to the provided LPN...
+                if(trafficTicket.licensePlate.equals(licensePlateNumber)){
+                    //fetch the corresponding data (drivers license number, date, address, violation)
+                    String driversLicenseNumber = trafficTicket.driverLicenseNumber;
+                    String date = trafficTicket.date.toString();
+                    String address = AuxiliaryOperations.pad(trafficTicket.address, FileOperations.addressMaxLength);
+                    String violation = AuxiliaryOperations.pad(violations.get(trafficTicket.violationCode).violationDescription, FileOperations.violationDescriptionMaxLength);
+                    ticketCounter++;
+                    //print the data
+                    System.out.printf("\n\t%s\t\t%s\t\t\t\t%s\t\t%s", date, address, driversLicenseNumber, violation);
+                }
+            }
+            //if no tickets for the vehicle are found
+            if (ticketCounter == 0){
+                System.out.printf("\nNo tickets found");
+            }
+            System.out.printf("\n");
+        }
+    }  // method searchForPlate
 
 
     /** Inactive method - do not implement */
