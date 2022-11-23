@@ -104,6 +104,7 @@ public class MenuOperations {
                         showAllViolations();
             }
         }
+        sc.close();
         closingBanner();
     }  // method menu
 }
