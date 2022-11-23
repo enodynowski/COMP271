@@ -82,7 +82,7 @@ public class TrafficTicketManagement {
         // Driver may not have a record
         if (driver == null) {
             System.out.printf("\nThere is no record for driver license number %s\n",
-                    driver.driverLicenseNumber);
+                    driverLicenseNumber); //edited to remove driver.driverLicenseNumber because it will always throw a null pointer and crash the program.
         } else {
             System.out.printf("\n%s belongs to %s %s",
                     driver.driverLicenseNumber, driver.firstName, driver.lastName);
